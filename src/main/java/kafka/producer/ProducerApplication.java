@@ -24,9 +24,7 @@ import org.apache.kafka.common.errors.AuthorizationException;
 import org.apache.kafka.common.errors.ClusterAuthorizationException;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -39,8 +37,13 @@ public class ProducerApplication {
         .registerModule(new JavaTimeModule());
 
     // 데이터 모델 클래스들
-    @Data
-    @Builder
+	@Getter 
+	@Setter 
+	@Builder
+	@ToString
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
     static class Certified2Time {
         String id;
         OffsetDateTime alertTimeKst;
@@ -50,8 +53,14 @@ public class ProducerApplication {
         Long failureCount;
     }
 
-    @Data
-    @Builder
+
+	@Getter 
+	@Setter 
+	@Builder
+	@ToString
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
     static class CertifiedNotMove {
         String id;
         OffsetDateTime alertTimeKst;
@@ -61,8 +70,13 @@ public class ProducerApplication {
         Long failureCount;
     }
 
-    @Data
-    @Builder
+	@Getter 
+	@Setter 
+	@Builder
+	@ToString
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
     static class ResourceLevelFalse {
         String id;
         String clientIp;
@@ -76,8 +90,13 @@ public class ProducerApplication {
         String resourceType;
     }
 
-    @Data
-    @Builder
+	@Getter 
+	@Setter 
+	@Builder
+	@ToString
+	@EqualsAndHashCode
+	@NoArgsConstructor
+	@AllArgsConstructor
     static class SystemLevelFalse {
         String id;
         String clientIp;
@@ -217,7 +236,7 @@ public class ProducerApplication {
         sendMessage(producer, TOPIC_SYSTEM_LEVEL_FALSE, data);
     }
 
-    private static void sendMessage(KafkaProducer<String, String> producer, String topic, ObjectNode data) {
+	private static void sendMessage(KafkaProducer<String, String> producer, String topic, ObjectNode data) {
         String key = UUID.randomUUID().toString();
         String value = data.toString();
         ProducerRecord<String, String> record = new ProducerRecord<>(topic, key, value);
