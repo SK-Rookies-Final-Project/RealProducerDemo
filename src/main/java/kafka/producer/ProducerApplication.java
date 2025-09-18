@@ -46,7 +46,7 @@ public class ProducerApplication {
 	@AllArgsConstructor
     static class Certified2Time {
         String id;
-        OffsetDateTime alertTimeKst;
+        OffsetDateTime alertTimeKST;
         String alertType;
         String clientIp;
         String description;
@@ -63,7 +63,7 @@ public class ProducerApplication {
 	@AllArgsConstructor
     static class CertifiedNotMove {
         String id;
-        OffsetDateTime alertTimeKst;
+        OffsetDateTime alertTimeKST;
         String alertType;
         String clientIp;
         String description;
@@ -183,11 +183,11 @@ public class ProducerApplication {
     private static void sendCertified2TimeMessage(KafkaProducer<String, String> producer) {
         ObjectNode data = objectMapper.createObjectNode()
             .put("id", UUID.randomUUID().toString())
-            .put("alert_time_kst", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
-            .put("alert_type", "LOGIN_FAILURE")
-            .put("client_ip", generateRandomIp())
+            .put("alertTimeKST", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
+            .put("alertType", "LOGIN_FAILURE")
+            .put("clientIp", generateRandomIp())
             .put("description", "2회 연속 인증 실패")
-            .put("failure_count", 2);
+            .put("failureCount", 2);
 
         sendMessage(producer, TOPIC_CERTIFIED_2TIME, data);
     }
@@ -195,11 +195,11 @@ public class ProducerApplication {
     private static void sendCertifiedNotMoveMessage(KafkaProducer<String, String> producer) {
         ObjectNode data = objectMapper.createObjectNode()
             .put("id", UUID.randomUUID().toString())
-            .put("alert_time_kst", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
-            .put("alert_type", "LOCATION_CHANGE")
-            .put("client_ip", generateRandomIp())
+            .put("alertTimeKST", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
+            .put("alertType", "LOCATION_CHANGE")
+            .put("clientIp", generateRandomIp())
             .put("description", "비정상적인 위치에서의 접근 시도")
-            .put("failure_count", 1);
+            .put("failureCount", 1);
 
         sendMessage(producer, TOPIC_CERTIFIED_NOT_MOVE, data);
     }
@@ -207,15 +207,15 @@ public class ProducerApplication {
     private static void sendResourceLevelFalseMessage(KafkaProducer<String, String> producer) {
         ObjectNode data = objectMapper.createObjectNode()
             .put("id", UUID.randomUUID().toString())
-            .put("client_ip", generateRandomIp())
-            .put("event_time_kst", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
+            .put("clientIp", generateRandomIp())
+            .put("eventTimeKST", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
             .put("granted", false)
-            .put("method_name", "getResource")
+            .put("methodName", "getResource")
             .put("operation", "READ")
             .put("principal", "user123")
-            .put("processing_time_kst", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
-            .put("resource_name", "/api/secure/data")
-            .put("resource_type", "REST_API");
+            .put("processingTimeKST", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
+            .put("resourceName", "/api/secure/data")
+            .put("resourceType", "REST_API");
 
         sendMessage(producer, TOPIC_RESOURCE_LEVEL_FALSE, data);
     }
@@ -223,15 +223,15 @@ public class ProducerApplication {
     private static void sendSystemLevelFalseMessage(KafkaProducer<String, String> producer) {
         ObjectNode data = objectMapper.createObjectNode()
             .put("id", UUID.randomUUID().toString())
-            .put("client_ip", generateRandomIp())
-            .put("event_time_kst", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
+            .put("clientIp", generateRandomIp())
+            .put("eventTimeKST", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
             .put("granted", false)
-            .put("method_name", "systemOperation")
+            .put("methodName", "systemOperation")
             .put("operation", "ADMIN")
             .put("principal", "user123")
-            .put("processing_time_kst", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
-            .put("resource_name", "system/config")
-            .put("resource_type", "SYSTEM");
+            .put("processingTimeKST", OffsetDateTime.now(ZoneOffset.of("+09:00")).toString())
+            .put("resourceName", "system/config")
+            .put("resourceType", "SYSTEM");
 
         sendMessage(producer, TOPIC_SYSTEM_LEVEL_FALSE, data);
     }
