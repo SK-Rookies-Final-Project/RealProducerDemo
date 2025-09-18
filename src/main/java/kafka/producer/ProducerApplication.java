@@ -80,12 +80,12 @@ public class ProducerApplication {
     static class ResourceLevelFalse {
         String id;
         String clientIp;
-        OffsetDateTime eventTimeKst;
+        OffsetDateTime eventTimeKST;
         Boolean granted;
         String methodName;
         String operation;
         String principal;
-        OffsetDateTime processingTimeKst;
+        OffsetDateTime processingTimeKST;
         String resourceName;
         String resourceType;
     }
@@ -100,12 +100,12 @@ public class ProducerApplication {
     static class SystemLevelFalse {
         String id;
         String clientIp;
-        OffsetDateTime eventTimeKst;
+        OffsetDateTime eventTimeKST;
         Boolean granted;
         String methodName;
         String operation;
         String principal;
-        OffsetDateTime processingTimeKst;
+        OffsetDateTime processingTimeKST;
         String resourceName;
         String resourceType;
     }
